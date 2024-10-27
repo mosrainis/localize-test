@@ -1,0 +1,13 @@
+<ng-container *ngIf="currentCaseKey === 'caseOne'">
+    <span i18n="@@titleCaseOne">Title for Case One</span>
+  </ng-container>
+  <ng-container *ngIf="currentCaseKey === 'caseTwo'">
+    <span i18n="@@titleCaseTwo">Title for Case Two</span>
+  </ng-container>
+  <ng-container *ngIf="currentCaseKey === 'caseThree'">
+    <span i18n="@@titleCaseThree">Title for Case Three</span>
+  </ng-container>
+  
+  <button (click)="setTitle('caseOne')">Case One</button>
+  <button (click)="setTitle('caseTwo')">Case Two</button>
+  <button (click)="setTitle('caseThree')">Case Three</button>
