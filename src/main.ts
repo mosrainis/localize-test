@@ -3,6 +3,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { setLocaleData } from './app/service/set-locale-data';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+setLocaleData('en').then(() => {
+  bootstrapApplication(AppComponent, appConfig).catch(error => console.error(error));
+});

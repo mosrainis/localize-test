@@ -1,16 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { setLocaleData } from '../service/set-locale-data';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Locale } from '../service/supported-locales';
+import { localeProvider } from '../service/locale.provider';
 
 @Component({
   templateUrl: './test.component.html',
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink,
+    RouterLinkActive,
+    RouterOutlet,]
 })
 export class TestComponent {
+  #router = inject(Router);
 
-  currentCaseKey: 'caseOne' | 'caseTwo' | 'caseThree' = 'caseOne';
+  readonly translations = {
+    title: $localize`:@@title:Lovely English Title`,
+  };
 
-  setTitle(caseKey: 'caseOne' | 'caseTwo' | 'caseThree') {
-    this.currentCaseKey = caseKey;
+  async handleLocaleChange(locale: Locale) {
+    localeProvider.state = 'loading';
+
+    await setLocaleData(locale);
+
+    await this.#router.navigateByUrl(this.#router.url, {
+      onSameUrlNavigation: 'reload'
+    });
+
+    localeProvider.state = 'translated';
   }
+  
 }
